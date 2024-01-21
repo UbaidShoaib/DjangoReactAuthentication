@@ -7,24 +7,29 @@ import axiosInstance from "../authentication/Service/jwtService";
 function UsersList() {
     const navigation = useNavigate()
     const [users, setUsers] = useState([]);
-
     useEffect(() => {
-        async function fetchUsers() {
-            try {
-                const response = await axiosInstance.get('users/',{
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-                    }
-                });
-                setUsers(response.data);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
+        if (localStorage.getItem('access_token') === null) {
+            navigation('/login')
         }
 
-        fetchUsers();
     }, []);
+    useEffect(() => {
 
+        fetchUsers();
+        
+    }, []);
+    async function fetchUsers() {
+        try {
+            const response = await axiosInstance.get('users/',{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            });
+            setUsers(response.data);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    }
     return (
         <div className="m-5 text-center">
             <Table striped bordered hover>
