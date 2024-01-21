@@ -55,11 +55,19 @@ function RegisterForm() {
             <Grid item xs={4}>
             <TextField label="Username" fullWidth margin="normal" {...register('username', { required: true })} error={!!errors.username} helperText={errors.username?.message} />
             </Grid>
-            <Grid  item xs={4}>
-            <TextField label="Password" type="password" fullWidth margin="normal" {...register('password', { required: true })} error={!!errors.password} helperText={errors.password?.message} />
+            <Grid item xs={4}>
+            <TextField label="First Name" fullWidth margin="normal" {...register('first_name', { required: true })} error={!!errors.first_name} helperText={errors.first_name?.message} />
             </Grid>
+            <Grid item xs={4}>
+            <TextField label="Last Name" fullWidth margin="normal" {...register('last_name', { required: true })} error={!!errors.last_name} helperText={errors.last_name?.message} />
+            </Grid>
+            </Grid>
+            <Grid container spacing={2}>
             <Grid  item xs={4}>
             <TextField label="Email" type="email" fullWidth margin="normal" {...register('email', { required: true })} error={!!errors.email} helperText={errors.email?.message} />
+            </Grid>
+            <Grid  item xs={4}>
+                <TextField label="Password" type="password" fullWidth margin="normal" {...register('password', { required: true })} error={!!errors.password} helperText={errors.password?.message} />
             </Grid>
             </Grid>
             {/* Gender Field */}

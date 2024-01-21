@@ -2,20 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useParams} from "react-router-dom";
 import {Card, Container, ListGroup} from "react-bootstrap";
+import axiosInstance from "../authentication/Service/jwtService";
 
 function UserDetail() {
     const params = useParams()
     const [userDetails, setUserDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-console.log(params, 'hello')
+
     useEffect(() => {
         fetchUserDetails();
 
     }, []);
     async function fetchUserDetails() {
         try {
-            const response = await axios.get(`http://localhost:8000/users/${params.userId}/with_addresses/`); // Adjust URL to your API
+            const response = await axiosInstance.get(`users/${params.userId}/with_addresses/`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                }
+            });
             setUserDetails(response.data);
         } catch (err) {
             setError(err);

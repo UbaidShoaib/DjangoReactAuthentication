@@ -6,14 +6,14 @@ import {useNavigate} from "react-router-dom";
 export const Home = () => {
     const navigation =useNavigate()
     useEffect(() => {
-        if (!localStorage.getItem('access_token') || localStorage.getItem('access_token') === null) {
+        if (localStorage.getItem('access_token') === null) {
             navigation('/login')
         }
 
     }, []);
     return(
     <div className="form-signin mt-5 text-center">
-        <h3>Hi </h3>
+
         <UserList/>
 
     </div>)

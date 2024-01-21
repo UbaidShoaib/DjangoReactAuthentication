@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Button, Table} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import axiosInstance from "../authentication/Service/jwtService";
 
 function UsersList() {
     const navigation = useNavigate()
@@ -10,10 +11,11 @@ function UsersList() {
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await axios.get('http://localhost:8000/users/', {
+                const response = await axiosInstance.get('users/',{
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-                    }}); // Adjust URL to your API
+                    }
+                });
                 setUsers(response.data);
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -24,21 +26,25 @@ function UsersList() {
     }, []);
 
     return (
-        <div className="text-center">
+        <div className="m-5 text-center">
             <Table striped bordered hover>
                 <thead>
                 <tr>
                     <th>#</th>
                     <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
                     <th>Email</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {users.map(user =>
+                {users.map((user, index) =>
                     <tr key={user.id}>
-                        <td>1</td>
+                        <td>{index+1}</td>
                         <td>{user.username}</td>
+                        <td>{user.first_name}</td>
+                        <td>{user.last_name}</td>
                         <td>{user.email}</td>
                         <td>
                             <Button onClick={() => navigation(`/users/${user.id}`)}>get detail</Button>

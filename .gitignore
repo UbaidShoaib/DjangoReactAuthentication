@@ -5,3 +5,4 @@ db.sqlite3
 /frontend/node_modules/
 /frontend/package-lock.json
 /frontend/.idea/
+/DjangoReactAuth/debug.log

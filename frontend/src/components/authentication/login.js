@@ -15,14 +15,13 @@ function Login() {
             const user = { username, password };
             const { data } = await axios.post('http://localhost:8000/token/', user, {
                 headers: { 'Content-Type': 'application/json' },
-                // withCredentials: true
             });
 
             localStorage.clear();
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
 
-            navigate('/home'); // Redirect to home page or dashboard
+            navigate('/');
         } catch (error) {
             console.error('Login error:', error);
         }
