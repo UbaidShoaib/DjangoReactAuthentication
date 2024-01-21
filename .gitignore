@@ -1,0 +1,7 @@
+.idea
+.venv
+db.sqlite3
+/DjangoReactAuth/settings/local.py
+/frontend/node_modules/
+/frontend/package-lock.json
+/frontend/.idea/
