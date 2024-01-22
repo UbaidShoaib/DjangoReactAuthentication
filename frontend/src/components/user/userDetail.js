@@ -16,11 +16,7 @@ function UserDetail() {
     }, []);
     async function fetchUserDetails() {
         try {
-            const response = await axiosInstance.get(`users/${params.userId}/with_addresses/`,{
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-                }
-            });
+            const response = await axiosInstance.get(`users/${params.userId}/with_addresses/`);
             setUserDetails(response.data);
         } catch (err) {
             setError(err);
@@ -29,7 +25,9 @@ function UserDetail() {
             setLoading(false);
         }
     }
+    useEffect(()=>{
 
+    },[error])
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error loading user details.</div>;
 

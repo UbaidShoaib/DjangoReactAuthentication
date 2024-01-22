@@ -3,10 +3,13 @@ import axios from 'axios';
 import {Button, Table} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import axiosInstance from "../authentication/Service/jwtService";
+import Alert from "react-bootstrap/Alert";
 
 function UsersList() {
     const navigation = useNavigate()
     const [users, setUsers] = useState([]);
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState('');
     useEffect(() => {
         if (localStorage.getItem('access_token') === null) {
             navigation('/login')
@@ -20,18 +23,32 @@ function UsersList() {
     }, []);
     async function fetchUsers() {
         try {
-            const response = await axiosInstance.get('users/',{
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-                }
-            });
+            const response = await axiosInstance.get('users/',);
+            if(response.data === undefined){
+
+            setShow(true)
+            setMessage('Some thing went wrong')
+            }
+            else{
             setUsers(response.data);
+            }
         } catch (error) {
             console.error('Error fetching users:', error);
+            setShow(true)
+            setMessage('Some thing went wrong')
         }
     }
+    useEffect(()=>{
+
+    },[show])
     return (
         <div className="m-5 text-center">
+            {show ?
+                <Alert key={'login-error'} variant={'danger'}
+                     onClose={() => {setMessage('')
+                     setShow(false)
+                     }} dismissible>
+                     {message}</Alert> :
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -59,8 +76,7 @@ function UsersList() {
 
 
                 </tbody>
-            </Table>
-
+            </Table>}
         </div>
     );
 }
